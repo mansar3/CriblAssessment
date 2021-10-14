@@ -6,12 +6,16 @@ services:
       dockerfile: ./target/Dockerfile
     ports:
      - "9997:9997"
+    volumes:
+     - ./:/usr/src/app
   target_2:
     build:
       context: .
       dockerfile: ./target/Dockerfile
     ports:
      - "9998:9997"
+    # volumes:
+    #  - ./:/usr/src/app
   splitter:
     build:
       context: .
@@ -29,3 +33,12 @@ services:
      - "9995:9995"
     depends_on:
      - "splitter"
+  assignment:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+     - "9994:9994"
+    depends_on:
+     - "agent"
+  
