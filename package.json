@@ -4,7 +4,8 @@
   "description": "Cribl Assessment",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 60000"
+    "test": "mocha --timeout 60000 && docker cp ./ ",
+    "data": "mkdir ./output/ && docker cp assignment-target_1-1:usr/src/app/events.log ./output/events1.log && docker cp assignment-target_2-1:usr/src/app/events.log ./output/events2.log"
   },
   "repository": {
     "type": "git",

@@ -9,7 +9,8 @@ const expect = chai.expect
 
 describe('test1', function () {
     var eventSet = new Set();
-    before('test1before', function (done) {
+    var gatheredSet = new Set();
+    before('test1', function (done) {
         const readLine = require('readline');
         const f = require('fs');
         var file = './agent/inputs/large_1M_events.log';
@@ -26,16 +27,40 @@ describe('test1', function () {
                 eventSet.add(line);
             }
             console.log("done reading file");
-            done();
+            done();           
         }
-        start()
+        start();
+
+
+
+      //   var file = './events.log';
+
+      //   var rl = readLine.createInterface({
+      //       input : f.createReadStream(file),
+      //       output : process.stdout,
+      //       terminal: false
+      //   });
+
+
+      //   const start2 = async () =>{
+      //     for await (const line of rl) {
+      //         // console.log(line)
+      //         gatheredSet.add(line);
+      //     }
+      //     console.log("done reading file gatheredSet");
+      //     done();
+      // }
+      // start2();
         
     });
+
   
-    describe('is_null_input()', function () {
+  
+    describe('First Test', function () {
       it('should return a json string', function () {
         console.log("hellooo");
-        console.log("lines:" , eventSet.size);
+        console.log("input lines:" , eventSet.size);
+        console.log("gathered lines:" , gatheredSet.size);
       });
     });
   
