@@ -5,8 +5,9 @@ name: CI
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  pull_request:
+  push:
     branches: [ main ]
+
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -16,7 +17,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -44,7 +45,16 @@ jobs:
       # Runs a single command using the runners shell
       - name: Run tests
         run: npm test
-
+  # test:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   # Steps represent a sequence of tasks that will be executed as part of the job
+  #   steps:
+  #     # Runs a single command using the runners shell
+  #     - name: Run tests
+  #       run: npm test
+#
+#
       # Runs a set of commands using the runners shell
 #       - name: Run a multi-line script
 #         run: |
