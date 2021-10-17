@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 0,
-    "start": "2021-10-17T15:50:56.984Z",
-    "end": "2021-10-17T15:51:00.680Z",
-    "duration": 3696,
+    "start": "2021-10-17T15:57:59.551Z",
+    "end": "2021-10-17T15:58:02.758Z",
+    "duration": 3207,
     "testsRegistered": 2,
     "passPercent": 100,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "9dc07ede-249a-4934-b28a-fded4ae9ef59",
+      "uuid": "3ba8bae2-f8d8-477b-b337-bbc8cc6f113e",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "4183ef9f-6f8f-41cf-921f-0d03769d9bef",
+          "uuid": "8e4d56dd-63f8-4c1e-a4ac-f9bdd3206fec",
           "title": "Stream Tests",
           "fullFile": "/home/runner/work/CriblAssessment/CriblAssessment/test/stream.test.js",
           "file": "/test/stream.test.js",
@@ -36,7 +36,7 @@
               "title": "\"before all\" hook: Data Setup in \"Stream Tests\"",
               "fullTitle": "Stream Tests \"before all\" hook: Data Setup in \"Stream Tests\"",
               "timedOut": false,
-              "duration": 2900,
+              "duration": 2443,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "const file = \"./agent/inputs/large_1M_events.log\";\neventSet = await fr.fileReader(file);\n// console.log(\"back in before method\");\nconst file2 = \"./output/events1.log\";\ngatheredSet = await fr.fileReader(file2);\n// console.log(\"back in before method\");\nconst file3 = \"./output/events2.log\";\ngatheredSet2 = await fr.fileReader(file3);\n// console.log(\"back in before method\");",
               "err": {},
-              "uuid": "bf067c5a-0d5b-434d-8050-573cac41259b",
-              "parentUUID": "4183ef9f-6f8f-41cf-921f-0d03769d9bef",
+              "uuid": "da5ccad2-886e-48e6-b3d3-b4d0a3ec9b8f",
+              "parentUUID": "8e4d56dd-63f8-4c1e-a4ac-f9bdd3206fec",
               "isHook": true,
               "skipped": false
             }
@@ -55,7 +55,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "3bceff5e-4de9-4315-a30c-0a520cd8400a",
+              "uuid": "96f4080f-b422-4fb5-94d5-36df67f63324",
               "title": "Happy Path Tests",
               "fullFile": "/home/runner/work/CriblAssessment/CriblAssessment/test/stream.test.js",
               "file": "/test/stream.test.js",
@@ -66,7 +66,7 @@
                   "title": "Verify All Inputs are accounted for in the Targets",
                   "fullTitle": "Stream Tests Happy Path Tests Verify All Inputs are accounted for in the Targets",
                   "timedOut": false,
-                  "duration": 643,
+                  "duration": 588,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -75,8 +75,8 @@
                   "context": null,
                   "code": "const tempSet = new Set(eventSet);\nhelper.removeAll(tempSet, gatheredSet2);\nhelper.removeAll(tempSet, gatheredSet);\n// console.log(tempSet.size);\nconsole.log(\"missing lines:\", tempSet.size);\nconsole.log(\"gathered lines:\", gatheredSet.size);\nconsole.log(\"gathered2 lines:\", gatheredSet2.size);\nconsole.log(\"input lines:\", eventSet.size);\n// const expect = chai.expect;\nexpect(tempSet,`Data from input file is missing in target sources. Missing data size: ${tempSet.size}`).to.be.empty\n// assert.lengthOf(tempSet.size,0, `Data from input file are missing in target sources. Missing data size: ${tempSet.size}`)\n// console.log(tempSet);",
                   "err": {},
-                  "uuid": "d935942b-6f29-4dd5-a0ea-6fec686fa60f",
-                  "parentUUID": "3bceff5e-4de9-4315-a30c-0a520cd8400a",
+                  "uuid": "67ede483-b53c-49cb-adb0-897b61698b13",
+                  "parentUUID": "96f4080f-b422-4fb5-94d5-36df67f63324",
                   "isHook": false,
                   "skipped": false
                 },
@@ -84,7 +84,7 @@
                   "title": "Verify No Duplicate Entries between the target entries",
                   "fullTitle": "Stream Tests Happy Path Tests Verify No Duplicate Entries between the target entries",
                   "timedOut": false,
-                  "duration": 149,
+                  "duration": 171,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -93,21 +93,21 @@
                   "context": null,
                   "code": "const interSet = helper.intersection(gatheredSet, gatheredSet2);\n// console.log(tempSet.size);\nconsole.log(\"intersections lines:\", interSet.size);\nconsole.log(\"gathered lines:\", gatheredSet.size);\nconsole.log(\"gathered2 lines:\", gatheredSet2.size);\n// const expect = chai.expect;\nexpect(interSet,`Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`).to.be.empty\n// console.log(tempSet);",
                   "err": {},
-                  "uuid": "3441f9c5-a52a-455f-9391-0a05a06059bf",
-                  "parentUUID": "3bceff5e-4de9-4315-a30c-0a520cd8400a",
+                  "uuid": "6b433580-fd61-4419-b7ab-0e4f980394e8",
+                  "parentUUID": "96f4080f-b422-4fb5-94d5-36df67f63324",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "d935942b-6f29-4dd5-a0ea-6fec686fa60f",
-                "3441f9c5-a52a-455f-9391-0a05a06059bf"
+                "67ede483-b53c-49cb-adb0-897b61698b13",
+                "6b433580-fd61-4419-b7ab-0e4f980394e8"
               ],
               "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 792,
+              "duration": 759,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
