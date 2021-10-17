@@ -37,7 +37,7 @@ describe("Stream Tests", function () {
       console.log("input lines:", eventSet.size);
 
       // const expect = chai.expect;
-      expect(tempSet,`Data from input file is missing in target sources. Missing data size: ${tempSet.size}`).to.be.equal(0)
+      expect(tempSet,`Data from input file is missing in target sources. Missing data size: ${tempSet.size}`).to.be.empty
       // assert.lengthOf(tempSet.size,0, `Data from input file are missing in target sources. Missing data size: ${tempSet.size}`)
       // console.log(tempSet);
     });
@@ -50,7 +50,7 @@ describe("Stream Tests", function () {
       console.log("gathered2 lines:", gatheredSet2.size);
 
       // const expect = chai.expect;
-      expect(interSet,`Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`).to.be.equal(0)
+      expect(interSet,`Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`).to.be.empty
       // console.log(tempSet);
     });
   });
