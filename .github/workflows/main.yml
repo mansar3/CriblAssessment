@@ -61,6 +61,12 @@ jobs:
       # Runs a single command using the runners shell
       - name: Bring down target, splitter and agent containers
         run: docker-compose down
+
+      - name: Cache Project
+        uses: actions/cache@v2
+        with:
+          path: ~/
+      
         
       # # Runs a single command using the runners shell
       # - name: Run tests
