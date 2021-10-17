@@ -16,9 +16,8 @@ const fileReader = async (fileSource) => {
 
   rl.close();
 
-  return eventSet;  
+  return eventSet;
 };
-
 
 module.exports = {
   fileReader,

@@ -3,55 +3,64 @@ const expect = require("chai").expect;
 const { check } = require("yargs");
 const fr = require("./helper/fileReader");
 const helper = require("./helper/setHelper");
-
+const addContext = require('mochawesome/addContext');
 
 describe("Stream Tests", function () {
-  let gatheredSet = new Set();
-  let gatheredSet2 = new Set();
-  let eventSet = new Set();
+  let eventSet1 = new Set();
+  let eventSet2 = new Set();
+  let inputSet = new Set();
   before("Data Setup", async function () {
     const file = "./agent/inputs/large_1M_events.log";
-    eventSet = await fr.fileReader(file);
-    // console.log("back in before method");
+    inputSet = await fr.fileReader(file);
 
     const file2 = "./output/events1.log";
-    gatheredSet = await fr.fileReader(file2);
-    // console.log("back in before method");
+    eventSet1 = await fr.fileReader(file2);
 
     const file3 = "./output/events2.log";
-    gatheredSet2 = await fr.fileReader(file3);
-    // console.log("back in before method");
+    eventSet2 = await fr.fileReader(file3);
   });
 
   describe("Happy Path Tests", function () {
     it("Verify All Inputs are accounted for in the Targets", function () {
-      const tempSet = new Set(eventSet);
+      const missingLinesSet = new Set(inputSet);
 
-      helper.removeAll(tempSet, gatheredSet2);
-      helper.removeAll(tempSet, gatheredSet);
+      helper.removeAll(missingLinesSet, eventSet2);
+      helper.removeAll(missingLinesSet, eventSet1);
 
-      // console.log(tempSet.size);
-      console.log("missing lines:", tempSet.size);
-      console.log("gathered lines:", gatheredSet.size);
-      console.log("gathered2 lines:", gatheredSet2.size);
-      console.log("input lines:", eventSet.size);
+      // console.log("input lines:", inputSet.size);
+      // console.log("missing lines:", missingLinesSet.size);
+      // console.log("event1 lines:", eventSet1.size);
+      // console.log("event2 lines:", eventSet2.size);
+      // console.log("input lines:", inputSet.size);
 
-      // const expect = chai.expect;
-      expect(tempSet,`Data from input file is missing in target sources. Missing data size: ${tempSet.size}`).to.be.empty
-      // assert.lengthOf(tempSet.size,0, `Data from input file are missing in target sources. Missing data size: ${tempSet.size}`)
-      // console.log(tempSet);
+
+      addContext(this, `event1 lines: ${eventSet1.size}`);
+      addContext(this, `event2 lines: ${eventSet2.size}`);
+      addContext(this, `input lines: ${inputSet.size}`);
+      addContext(this, `number of missing lines: ${missingLinesSet.size}`);
+      addContext(this, `missing lines: ${missingLinesSet}`);
+
+      expect(
+        missingLinesSet,
+        `Data from input file is missing in target sources. Missing data size: ${missingLinesSet.size}`
+      ).to.be.empty;
     });
 
     it("Verify No Duplicate Entries between the target entries", function () {
-      const interSet = helper.intersection(gatheredSet, gatheredSet2);
-      // console.log(tempSet.size);
-      console.log("intersections lines:", interSet.size);
-      console.log("gathered lines:", gatheredSet.size);
-      console.log("gathered2 lines:", gatheredSet2.size);
+      const interSet = helper.intersection(eventSet1, eventSet2);
 
-      // const expect = chai.expect;
-      expect(interSet,`Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`).to.be.empty
-      // console.log(tempSet);
+      // console.log("intersections lines:", interSet.size);
+      // console.log("event1 lines:", eventSet1.size);
+      // console.log("event2 lines:", eventSet2.size);
+
+      addContext(this, `intersections lines: ${interSet.size}`);
+      addContext(this, `event1 lines: ${eventSet1.size}`);
+      addContext(this, `event2 lines: ${eventSet2.size}`);
+
+      expect(
+        interSet,
+        `Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`
+      ).to.be.empty;
     });
   });
 });
