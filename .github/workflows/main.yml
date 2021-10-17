@@ -24,22 +24,14 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      # - name: Setup Node.js environment
-      #   uses: actions/setup-node@v2.4.1
-      #   with:
-      #     node-version: 16.11.1 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.1
+        with:
+          node-version: 16.11.1 # optional
 
-      # # Runs a single command using the runners shell
-      # - name: Install Project Dependencies
-      #   run: npm ci
-
-      # - name: Cache Node
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: ~/.npm
-      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-node-
+      # Runs a single command using the runners shell
+      - name: Install Project Dependencies
+        run: npm install
 
       # Runs a single command using the runners shell
       - name: Bring up target,splitter, and agent containers
@@ -62,23 +54,26 @@ jobs:
       - name: Bring down target, splitter and agent containers
         run: docker-compose down
 
-      - name: Cache Project
-        uses: actions/cache@v2
+      - name: Cache Repo
+        uses: actions/upload-artifact@master
         with:
-          path: ~/
-      
+          name: project
+          path: ./
+          retention-days: 1
         
-      # # Runs a single command using the runners shell
-      # - name: Run tests
-      #   run: npm test
-  test:
+  #     # Runs a single command using the runners shell
+  #     - name: Run tests
+  #       run: npm test
+  # test:
     needs: build
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-            # # Runs a single command using the runners shell
-      - name: Install Project Dependencies
-        run: npm ci
+    - name: Get Cached Repo
+      uses: actions/download-artifact@master
+      with:
+        name: project
+        path: ./
       # Runs a single command using the runners shell
       - name: Run tests
         run: npm test
