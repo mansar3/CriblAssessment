@@ -31,8 +31,12 @@ jobs:
           node-version: 16.11.1 # optional
 
       # Runs a single command using the runners shell
+      - name: Install Project Dependencies
+        run: npm install
+
+      # Runs a single command using the runners shell
       - name: Bring up target,splitter, and agent containers
-        run: docker-compose up
+        run: docker-compose up -d
         
       # Runs a single command using the runners shell
       - name: Retrieve data from containers
