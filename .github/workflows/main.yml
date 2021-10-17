@@ -24,24 +24,31 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v2.4.1
-        with:
-          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
-          node-version: 16.11.1 # optional
+      # - name: Setup Node.js environment
+      #   uses: actions/setup-node@v2.4.1
+      #   with:
+      #     node-version: 16.11.1 
 
-      # Runs a single command using the runners shell
-      - name: Install Project Dependencies
-        run: npm install
+      # # Runs a single command using the runners shell
+      # - name: Install Project Dependencies
+      #   run: npm ci
+
+      # - name: Cache Node
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
 
       # Runs a single command using the runners shell
       - name: Bring up target,splitter, and agent containers
         run: docker-compose up -d
 
-      - name: Sleep for 30 seconds
+      - name: Sleep for 10 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '30s'
+          time: '10s'
 
       # Runs a single command using the runners shell
       - name: Bring up target,splitter, and agent containers
@@ -55,17 +62,20 @@ jobs:
       - name: Bring down target, splitter and agent containers
         run: docker-compose down
         
+      # # Runs a single command using the runners shell
+      # - name: Run tests
+      #   run: npm test
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+            # # Runs a single command using the runners shell
+      - name: Install Project Dependencies
+        run: npm ci
       # Runs a single command using the runners shell
       - name: Run tests
         run: npm test
-  # test:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   # Steps represent a sequence of tasks that will be executed as part of the job
-  #   steps:
-  #     # Runs a single command using the runners shell
-  #     - name: Run tests
-  #       run: npm test
   #
   #
       # Runs a set of commands using the runners shell
