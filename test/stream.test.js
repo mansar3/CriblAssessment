@@ -1,112 +1,57 @@
-const mocha = require('mocha')
-const chai = require('chai');
-const { check } = require('yargs');
+const mocha = require("mocha");
+const expect = require("chai").expect;
+const { check } = require("yargs");
+const fr = require("./helper/fileReader");
+const helper = require("./helper/setHelper");
 
 
-const expect = chai.expect
+describe("Stream Tests", function () {
+  let gatheredSet = new Set();
+  let gatheredSet2 = new Set();
+  let eventSet = new Set();
+  before("Data Setup", async function () {
+    const file = "./agent/inputs/large_1M_events.log";
+    eventSet = await fr.fileReader(file);
+    // console.log("back in before method");
 
+    const file2 = "./output/events1.log";
+    gatheredSet = await fr.fileReader(file2);
+    // console.log("back in before method");
 
-
-describe('test1', function () {
-    var eventSet = new Set();
-    var gatheredSet = new Set();
-    before('test1', function (done) {
-        const readLine = require('readline');
-        const f = require('fs');
-        var file = './agent/inputs/large_1M_events.log';
-        
-        var rl = readLine.createInterface({
-            input : f.createReadStream(file),
-            output : process.stdout,
-            terminal: false
-        });
-        
-        const start = async () =>{
-            for await (const line of rl) {
-                // console.log(line)
-                eventSet.add(line);
-            }
-            console.log("done reading file");
-            done();           
-        }
-        start();
-
-
-
-      //   var file = './events.log';
-
-      //   var rl = readLine.createInterface({
-      //       input : f.createReadStream(file),
-      //       output : process.stdout,
-      //       terminal: false
-      //   });
-
-
-      //   const start2 = async () =>{
-      //     for await (const line of rl) {
-      //         // console.log(line)
-      //         gatheredSet.add(line);
-      //     }
-      //     console.log("done reading file gatheredSet");
-      //     done();
-      // }
-      // start2();
-        
-    });
-
-  
-  
-    describe('First Test', function () {
-      it('should return a json string', function () {
-        console.log("hellooo");
-        console.log("input lines:" , eventSet.size);
-        console.log("gathered lines:" , gatheredSet.size);
-      });
-    });
-  
+    const file3 = "./output/events2.log";
+    gatheredSet2 = await fr.fileReader(file3);
+    // console.log("back in before method");
   });
 
+  describe("Happy Path Tests", function () {
+    it("Verify All Inputs are accounted for in the Targets", function () {
+      const tempSet = new Set(eventSet);
 
-// Group of tests using describe
-// describe('fareUtils', function () {
+      helper.removeAll(tempSet, gatheredSet2);
+      helper.removeAll(tempSet, gatheredSet);
 
-//     var eventSet = new Set();
+      // console.log(tempSet.size);
+      console.log("missing lines:", tempSet.size);
+      console.log("gathered lines:", gatheredSet.size);
+      console.log("gathered2 lines:", gatheredSet2.size);
+      console.log("input lines:", eventSet.size);
 
-//     it('readFile', async function() {
-//         const readLine = require('readline');
-//         const f = require('fs');
-//         var file = './agent/inputs/large_1M_events.log';
-        
-//         var rl = await readLine.createInterface({
-//             input : await f.createReadStream(file),
-//             output : process.stdout,
-//             terminal: false
-//         });
-        
-//         const t=  rl.on('line', function (text) {
-//             console.log(text);
-//             eventSet.add(text);
-//         });
+      // const expect = chai.expect;
+      expect(tempSet,`Data from input file is missing in target sources. Missing data size: ${tempSet.size}`).to.be.equal(0)
+      // assert.lengthOf(tempSet.size,0, `Data from input file are missing in target sources. Missing data size: ${tempSet.size}`)
+      // console.log(tempSet);
+    });
 
-//         await t;
+    it("Verify No Duplicate Entries between the target entries", function () {
+      const interSet = helper.intersection(gatheredSet, gatheredSet2);
+      // console.log(tempSet.size);
+      console.log("intersections lines:", interSet.size);
+      console.log("gathered lines:", gatheredSet.size);
+      console.log("gathered2 lines:", gatheredSet2.size);
 
-//         console.log("yayyy");
-//         return rl;
-//     })
-
-//     // We will describe each single test using it
-//     it('expect fare to be 50 for 0km, 0min', () => {
-//         console.log("hellooo");
-//         console.log("lines:" , eventSet.size);
-//     })
-  
-//     it('expect fare to be 100 for 0km, 0min', () => {
-//         console.log("hellooo");
-//         console.log("lines:" , eventSet.size);
-//     })
-  
-//     // it('expect fare to be 56 for 2km, 18min', () => {
-//     //     let fare = fareUtils.calcFare(2, 18)
-//     //     expect(fare).to.equal(56)
-//     // })
-// })
+      // const expect = chai.expect;
+      expect(interSet,`Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`).to.be.equal(0)
+      // console.log(tempSet);
+    });
+  });
+});
