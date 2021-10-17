@@ -8,9 +8,7 @@ services:
     ports:
      - "9997:9997"
     container_name: 'target_1'
-    # volumes:  
-    #   - ./:/usr/src/app
-    # command: bash -c "mv /usr/src/app/events.log /usr/src/app/events1.log"
+
   target_2:
     build:
       context: .
@@ -18,11 +16,7 @@ services:
     ports:
      - "9998:9997"
     container_name: 'target_2'
-    # volumes:
-    #  - ./:/usr/src/app
-    # command: bash -cs "mv /usr/src/app/events.log /usr/src/app/events1.log"
-    # depends_on:
-    #  - "target_1"
+
   splitter:
     build:
       context: .
@@ -33,6 +27,7 @@ services:
      - "target_1"
      - "target_2"
     container_name: 'splitter'
+    
   agent:
     build:
       context: .
