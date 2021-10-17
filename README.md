@@ -50,6 +50,29 @@ Without going into the many pros and cons of each one(which you'll find many art
 - Verify that all data in the input file exists somehwere between the two target log files.
 - Verify that for each input line their exists only one entry between the two target files. 
 
+#####Ideal Test Case
+
+I spent some time looking into the logic:
+
+```
+            var idx = data.indexOf("\n");
+            var part_1 = "";
+            var part_2 = "";
+            if (idx == -1) {
+                part_1 = data;
+                writeToSocket(part_1, outSocks[sockIdx], localSocket);
+            }
+            else {
+                part_1 = data.slice(0, idx + 1); /* include the line termination */
+                part_2 = data.slice(idx + 1);
+                writeToSocket(part_1, outSocks[sockIdx], localSocket);
+                sockIdx++;
+                sockIdx %= outSocks.length;
+                writeToSocket(part_2, outSocks[sockIdx], localSocket);
+```
+
+Ideally we'd be able to confirm which line each target belongs to. The issue however is the ever-changing buffer size(avg 56683-65529 characters on my local machine) which affects part_2. Even if I was able to re-implement the same logic on the testing side I would not be guaranteed to have the same buffer size. If we were however able to retrieve or store the buffer sizes or even use a more concrete way of splitting the input (in terms of app logic) we'd be able to create a more beneficial test case out of it. 
+
 
 ## CICD
 
