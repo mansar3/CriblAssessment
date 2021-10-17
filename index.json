@@ -1,0 +1,159 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-10-17T15:39:42.924Z",
+    "end": "2021-10-17T15:39:46.169Z",
+    "duration": 3245,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "1290a808-7da9-4ca9-bd6e-397aa35d2ced",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "df20257b-a97e-4fa3-8e25-6e3bc2d926b1",
+          "title": "Stream Tests",
+          "fullFile": "/home/runner/work/CriblAssessment/CriblAssessment/test/stream.test.js",
+          "file": "/test/stream.test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook: Data Setup in \"Stream Tests\"",
+              "fullTitle": "Stream Tests \"before all\" hook: Data Setup in \"Stream Tests\"",
+              "timedOut": false,
+              "duration": 2491,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const file = \"./agent/inputs/large_1M_events.log\";\neventSet = await fr.fileReader(file);\n// console.log(\"back in before method\");\nconst file2 = \"./output/events1.log\";\ngatheredSet = await fr.fileReader(file2);\n// console.log(\"back in before method\");\nconst file3 = \"./output/events2.log\";\ngatheredSet2 = await fr.fileReader(file3);\n// console.log(\"back in before method\");",
+              "err": {},
+              "uuid": "27c21dde-1e41-4741-81f4-bcf65c5bb72e",
+              "parentUUID": "df20257b-a97e-4fa3-8e25-6e3bc2d926b1",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "1e40106d-7047-4ae3-a7ea-68b70ce185bd",
+              "title": "Happy Path Tests",
+              "fullFile": "/home/runner/work/CriblAssessment/CriblAssessment/test/stream.test.js",
+              "file": "/test/stream.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Verify All Inputs are accounted for in the Targets",
+                  "fullTitle": "Stream Tests Happy Path Tests Verify All Inputs are accounted for in the Targets",
+                  "timedOut": false,
+                  "duration": 570,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const tempSet = new Set(eventSet);\nhelper.removeAll(tempSet, gatheredSet2);\nhelper.removeAll(tempSet, gatheredSet);\n// console.log(tempSet.size);\nconsole.log(\"missing lines:\", tempSet.size);\nconsole.log(\"gathered lines:\", gatheredSet.size);\nconsole.log(\"gathered2 lines:\", gatheredSet2.size);\nconsole.log(\"input lines:\", eventSet.size);\n// const expect = chai.expect;\nexpect(tempSet,`Data from input file is missing in target sources. Missing data size: ${tempSet.size}`).to.be.empty\n// assert.lengthOf(tempSet.size,0, `Data from input file are missing in target sources. Missing data size: ${tempSet.size}`)\n// console.log(tempSet);",
+                  "err": {},
+                  "uuid": "129c8f3e-7cd2-40ac-bb09-277963a7dc23",
+                  "parentUUID": "1e40106d-7047-4ae3-a7ea-68b70ce185bd",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Verify No Duplicate Entries between the target entries",
+                  "fullTitle": "Stream Tests Happy Path Tests Verify No Duplicate Entries between the target entries",
+                  "timedOut": false,
+                  "duration": 179,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "const interSet = helper.intersection(gatheredSet, gatheredSet2);\n// console.log(tempSet.size);\nconsole.log(\"intersections lines:\", interSet.size);\nconsole.log(\"gathered lines:\", gatheredSet.size);\nconsole.log(\"gathered2 lines:\", gatheredSet2.size);\n// const expect = chai.expect;\nexpect(interSet,`Data from input file seems to be on multiple target sources. Number of duplicates: ${interSet.size}`).to.be.empty\n// console.log(tempSet);",
+                  "err": {},
+                  "uuid": "fb5d89f0-3a9b-480b-89df-a82f21646f63",
+                  "parentUUID": "1e40106d-7047-4ae3-a7ea-68b70ce185bd",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "129c8f3e-7cd2-40ac-bb09-277963a7dc23",
+                "fb5d89f0-3a9b-480b-89df-a82f21646f63"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 749,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 10000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 10000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 10000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "9.1.2"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "index",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.3.1"
+    },
+    "marge": {
+      "options": {
+        "reportFilename": "index"
+      },
+      "version": "5.2.0"
+    }
+  }
+}
