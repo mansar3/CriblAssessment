@@ -4,7 +4,7 @@
   "description": "Cribl Assessment",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 10000 --reporter mochawesome",
+    "test": "mocha --timeout 10000 --reporter mochawesome --reporter-options reportFilename=index",
     "data": "mkdir -p ./output/ && docker cp target_1:usr/src/app/events.log ./output/events1.log && docker cp target_2:usr/src/app/events.log ./output/events2.log"
   },
   "repository": {
