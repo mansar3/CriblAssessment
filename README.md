@@ -48,5 +48,9 @@ Without going into the many pros and cons of each one(which you'll find many art
 
 #### Issues
 
+- Repo Persistance: I wanted to break the pipeline into 3 stages: build, test, report. To do this however I needed to persist the repo as Github Actions creates a fresh VM for every job even if they exist in the same workflow. Initially I created an artifact of the whole repo as I wouldn't need to pull it down again or have to install the dependencies again. The issue I saw was the upload and download of the artifacts was slow. I then changed it to only create an artifact of the output folder which holds the events.log files.
+
+
+
 
 
