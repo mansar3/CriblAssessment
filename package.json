@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha --timeout 60000",
-    "data": "mkdir -p ./output/ && docker cp assignment-target_1-1:usr/src/app/events.log ./output/events1.log && docker cp assignment-target_2-1:usr/src/app/events.log ./output/events2.log"
+    "data": "mkdir -p ./output/ && docker cp target_1:usr/src/app/events.log ./output/events1.log && docker cp target_2:usr/src/app/events.log ./output/events2.log"
   },
   "repository": {
     "type": "git",
