@@ -1,10 +1,10 @@
 # Project Setup
 
-#### Requirements
+### Requirements
 - Node v12 or greater
 - Docker
 
-#### Links for Requirements
+### Links for Requirements
 - NVM (Node Version Manager): https://github.com/nvm-sh/nvm (Only for mac) <- Once installed just run ```nvm install node``` to get the latest version of node 
 - Docker: https://docs.docker.com/get-docker/ 
 
@@ -15,6 +15,16 @@
 1. ```npm run data```: Pulls ```events.log``` files from containers into local project under ```./output/```
 1. ```npm test```: Runs all tests within the test folder and generates the report.
 
+### CICD
+This project uses Github Actions for its CI pipeline. You can find the workflow runs right above this under the `Actions` tab. Currently it is set to only run when something is merged to master OR when manually kicked off. 
+
+There are 3 jobs in the workflow:
+
+1. Build - Brings up the applications, retrieves the Data, and brings down the containers.
+1. Test - Runs all the mocha tests.
+1. Report - Publishes the report to Github Pages.
+
+You can find all of the steps related to the CI Pipeline in the project in here: `.github/workflows/main.yml`
 
 ### Reporting
 
