@@ -15,8 +15,16 @@ function intersection(firstSet, secondSet) {
   return intersection;
 }
 
+// Find the difference between the two sets explicity for the second set:
+// i.e [1, 2, 3, 4] [5, 4, 3, 2]  => {5}
+function except(firstSet, secondSet) {
+  let difference = new Set([...secondSet].filter((x) => !firstSet.has(x)));
+  return difference;
+}
+
 // Export functions for use in other files
 module.exports = {
   removeAll,
   intersection,
+  except,
 };
