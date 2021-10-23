@@ -5,9 +5,9 @@
     "passes": 2,
     "pending": 0,
     "failures": 2,
-    "start": "2021-10-23T01:31:44.403Z",
-    "end": "2021-10-23T01:31:49.352Z",
-    "duration": 4949,
+    "start": "2021-10-23T02:54:10.348Z",
+    "end": "2021-10-23T02:54:14.597Z",
+    "duration": 4249,
     "testsRegistered": 4,
     "passPercent": 50,
     "pendingPercent": 0,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "8034236a-034e-417d-87b9-cfc3b2a59b01",
+      "uuid": "ccd7e1e6-a206-44dc-89e0-a401aa91f6ed",
       "title": "",
       "fullFile": "",
       "file": "",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "f7e0c02e-5867-4e67-9550-e2ee4945fa3a",
+          "uuid": "b566320a-d4c0-4cc3-a0e0-d05732b0ba7f",
           "title": "Stream Tests",
           "fullFile": "/home/runner/work/CriblAssessment/CriblAssessment/test/stream.test.js",
           "file": "/test/stream.test.js",
@@ -36,7 +36,7 @@
               "title": "\"before all\" hook: Data Setup in \"Stream Tests\"",
               "fullTitle": "Stream Tests \"before all\" hook: Data Setup in \"Stream Tests\"",
               "timedOut": false,
-              "duration": 2957,
+              "duration": 2541,
               "state": null,
               "speed": null,
               "pass": false,
@@ -45,8 +45,8 @@
               "context": null,
               "code": "// Read file contents into appropriate set before starting tests.\nconst file = \"./agent/inputs/large_1M_events.log\";\ninputSet = await fr.fileReader(file);\nconst file2 = \"./output/events1.log\";\neventSet1 = await fr.fileReader(file2);\nconst file3 = \"./output/events2.log\";\neventSet2 = await fr.fileReader(file3);",
               "err": {},
-              "uuid": "f20fe65a-bcf2-4a7b-b4d1-26594da809aa",
-              "parentUUID": "f7e0c02e-5867-4e67-9550-e2ee4945fa3a",
+              "uuid": "e6febd46-e278-4942-912c-7ddbafae4eed",
+              "parentUUID": "b566320a-d4c0-4cc3-a0e0-d05732b0ba7f",
               "isHook": true,
               "skipped": false
             }
@@ -55,7 +55,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "38f268a1-b873-44ef-bdf1-d2c82d7145ca",
+              "uuid": "7f0a5da9-ef1e-4cb0-8bac-302aef26d8ba",
               "title": "Happy Path Tests",
               "fullFile": "/home/runner/work/CriblAssessment/CriblAssessment/test/stream.test.js",
               "file": "/test/stream.test.js",
@@ -66,21 +66,21 @@
                   "title": "Verify All Inputs are accounted for in the Targets",
                   "fullTitle": "Stream Tests Happy Path Tests Verify All Inputs are accounted for in the Targets",
                   "timedOut": false,
-                  "duration": 1251,
+                  "duration": 1076,
                   "state": "failed",
                   "speed": null,
                   "pass": false,
                   "fail": true,
                   "pending": false,
-                  "context": "[\n  \"event1 lines: 499384\",\n  \"event2 lines: 500616\",\n  \"input lines: 1000000\",\n  \"Lines that were not processed correctly and EXACT matches were not found in the targets:\\nThis is event number 2565\\nThis is event number 7605\\nThis is event number 13301\\nThis is event number 14274\\nThis is event number 16702\",\n  \"Target 1 incorrectly processed lines:\\nmber 7605\\nThis is event number 13This is event number 2565\\nThis is event nu event number 14274\\n301\\nThis isThis is event number 16702\",\n  \"Target 2 incorrectly processed lines:\\n\"\n]",
+                  "context": "[\n  \"event1 lines: 499384\",\n  \"event2 lines: 500616\",\n  \"input lines: 1000000\",\n  \"Lines that were not processed correctly and EXACT matches were not found in the targets:\\nThis is event number 433957\\nThis is event number 440980\\nThis is event number 916114\\nThis is event number 920795\\nThis is event number 958244\",\n  \"Target 1 incorrectly processed lines:\\nThis is event numThis is event number 440980\\nber 433957\\nThis is event number vent number 920795\\nThis is event number 9582916114\\nThis is e44\",\n  \"Target 2 incorrectly processed lines:\\n\"\n]",
                   "code": "// Clone the initial set as we dont want to alter it, in case we need it for other test.\nconst missingLinesSet = new Set(inputSet);\n// Create sets for the differences between target and input files\nlet exceptSet1 = helper.except(missingLinesSet, eventSet1);\nlet exceptSet2 = helper.except(missingLinesSet, eventSet2);\n// Remove all entries from the input set that match, leaving behind only entries that\n// did not make it into either of the targets.\nhelper.removeAll(missingLinesSet, eventSet2);\nhelper.removeAll(missingLinesSet, eventSet1);\n// Logging for the report/console\nlogHelper.log(this, `event1 lines: ${eventSet1.size}`);\nlogHelper.log(this, `event2 lines: ${eventSet2.size}`);\nlogHelper.log(this, `input lines: ${inputSet.size}`);\nlogHelper.log(\n  this,\n  \"Lines that were not processed correctly and EXACT matches were not found in the targets:\\n\" +\n    logHelper.toArrayForLogs(missingLinesSet)\n);\nlogHelper.log(\n  this,\n  \"Target 1 incorrectly processed lines:\\n\" +\n    logHelper.toArrayForLogs(exceptSet1)\n);\nlogHelper.log(\n  this,\n  \"Target 2 incorrectly processed lines:\\n\" +\n    logHelper.toArrayForLogs(exceptSet2)\n);\n// Assertion to validate that the missing set is empty.\nexpect(\n  missingLinesSet,\n  `Data from input file is missing in target sources (See report logs for more information). Missing data size: ${missingLinesSet.size}`\n).to.be.empty;",
                   "err": {
                     "message": "AssertionError: Data from input file is missing in target sources (See report logs for more information). Missing data size: 5: expected {} to be empty",
                     "estack": "AssertionError: Data from input file is missing in target sources (See report logs for more information). Missing data size: 5: expected {} to be empty\n    at Context.<anonymous> (test/stream.test.js:68:14)\n    at processImmediate (internal/timers.js:464:21)",
                     "diff": null
                   },
-                  "uuid": "605702f2-4f48-4571-8542-58cb92e44068",
-                  "parentUUID": "38f268a1-b873-44ef-bdf1-d2c82d7145ca",
+                  "uuid": "8aa3ac73-b0bf-4a6a-bed8-5c15a7c15234",
+                  "parentUUID": "7f0a5da9-ef1e-4cb0-8bac-302aef26d8ba",
                   "isHook": false,
                   "skipped": false
                 },
@@ -88,7 +88,7 @@
                   "title": "Verify No Duplicate Entries between the target entries",
                   "fullTitle": "Stream Tests Happy Path Tests Verify No Duplicate Entries between the target entries",
                   "timedOut": false,
-                  "duration": 239,
+                  "duration": 189,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -97,8 +97,8 @@
                   "context": "[\n  \"intersections lines: 0\",\n  \"event1 lines: 499384\",\n  \"Lines that were found to exist in both target 1 AND target 2:\\n\"\n]",
                   "code": "// Find any entries that may be similar across either events.log files\nconst interSet = helper.intersection(eventSet1, eventSet2);\n// Logging for the report.\nlogHelper.log(this, `intersections lines: ${interSet.size}`);\nlogHelper.log(this, `event1 lines: ${eventSet1.size}`);\nlogHelper.log(\n  this,\n  \"Lines that were found to exist in both target 1 AND target 2:\\n\" +\n    logHelper.toArrayForLogs(interSet)\n);\n// Assertion to validate that the intersection set is empty.\nexpect(\n  interSet,\n  `Data from input file seems to be on multiple target sources (See report logs for more information). Number of duplicates: ${interSet.size}`\n).to.be.empty;",
                   "err": {},
-                  "uuid": "834a6cd0-bea5-4540-99dd-a23a86026184",
-                  "parentUUID": "38f268a1-b873-44ef-bdf1-d2c82d7145ca",
+                  "uuid": "ae86567d-c4cd-4d78-858a-e7936e52ad1f",
+                  "parentUUID": "7f0a5da9-ef1e-4cb0-8bac-302aef26d8ba",
                   "isHook": false,
                   "skipped": false
                 },
@@ -106,21 +106,21 @@
                   "title": "Verify there is no extra data that exists in target 1 that does not exist in the input file",
                   "fullTitle": "Stream Tests Happy Path Tests Verify there is no extra data that exists in target 1 that does not exist in the input file",
                   "timedOut": false,
-                  "duration": 244,
+                  "duration": 225,
                   "state": "failed",
                   "speed": null,
                   "pass": false,
                   "fail": true,
                   "pending": false,
-                  "context": "\"Data in target 1 that does not match any data from input file:\\nmber 7605\\nThis is event number 13This is event number 2565\\nThis is event nu event number 14274\\n301\\nThis isThis is event number 16702\"",
+                  "context": "\"Data in target 1 that does not match any data from input file:\\nThis is event numThis is event number 440980\\nber 433957\\nThis is event number vent number 920795\\nThis is event number 9582916114\\nThis is e44\"",
                   "code": "// Find any entries that exists only in target 1\nlet exceptSet1 = helper.except(inputSet, eventSet1);\n// Logging for the report.\nlogHelper.log(\n  this,\n  \"Data in target 1 that does not match any data from input file:\\n\" +\n    logHelper.toArrayForLogs(exceptSet1)\n);\n// Assertion to validate that the difference set is empty.\nexpect(\n  exceptSet1,\n  `Data from target 1 that does not match any data from input file. Number of extra lines of data: ${exceptSet1.size}`\n).to.be.empty;",
                   "err": {
                     "message": "AssertionError: Data from target 1 that does not match any data from input file. Number of extra lines of data: 5: expected {} to be empty",
                     "estack": "AssertionError: Data from target 1 that does not match any data from input file. Number of extra lines of data: 5: expected {} to be empty\n    at Context.<anonymous> (test/stream.test.js:108:14)\n    at processImmediate (internal/timers.js:464:21)",
                     "diff": null
                   },
-                  "uuid": "3eeb1dfa-ee8f-4814-b395-e85988e3168b",
-                  "parentUUID": "38f268a1-b873-44ef-bdf1-d2c82d7145ca",
+                  "uuid": "ff860d9a-9bed-4435-a6a8-d7935999d002",
+                  "parentUUID": "7f0a5da9-ef1e-4cb0-8bac-302aef26d8ba",
                   "isHook": false,
                   "skipped": false
                 },
@@ -128,7 +128,7 @@
                   "title": "Verify there is no extra data that exists in target 2 that does not exist in the input file",
                   "fullTitle": "Stream Tests Happy Path Tests Verify there is no extra data that exists in target 2 that does not exist in the input file",
                   "timedOut": false,
-                  "duration": 245,
+                  "duration": 212,
                   "state": "passed",
                   "speed": "slow",
                   "pass": true,
@@ -137,24 +137,24 @@
                   "context": "\"Data in target2 that does not match any data from input file:\\n\"",
                   "code": "// Find any entries that exists only in target 2\nlet exceptSet2 = helper.except(inputSet, eventSet2);\n// Logging for the report.\nlogHelper.log(\n  this,\n  \"Data in target2 that does not match any data from input file:\\n\" +\n    logHelper.toArrayForLogs(exceptSet2)\n);\n// Assertion to validate that the difference set is empty.\nexpect(\n  exceptSet2,\n  `Data from target 2 that does not match any data from input file. Number of extra lines of data: ${exceptSet2.size}`\n).to.be.empty;",
                   "err": {},
-                  "uuid": "ac5538db-47f5-4e8f-8d36-119cef2ba86f",
-                  "parentUUID": "38f268a1-b873-44ef-bdf1-d2c82d7145ca",
+                  "uuid": "ce23029a-83e1-4c94-bd77-5bf81be6ddfb",
+                  "parentUUID": "7f0a5da9-ef1e-4cb0-8bac-302aef26d8ba",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
               "passes": [
-                "834a6cd0-bea5-4540-99dd-a23a86026184",
-                "ac5538db-47f5-4e8f-8d36-119cef2ba86f"
+                "ae86567d-c4cd-4d78-858a-e7936e52ad1f",
+                "ce23029a-83e1-4c94-bd77-5bf81be6ddfb"
               ],
               "failures": [
-                "605702f2-4f48-4571-8542-58cb92e44068",
-                "3eeb1dfa-ee8f-4814-b395-e85988e3168b"
+                "8aa3ac73-b0bf-4a6a-bed8-5c15a7c15234",
+                "ff860d9a-9bed-4435-a6a8-d7935999d002"
               ],
               "pending": [],
               "skipped": [],
-              "duration": 1979,
+              "duration": 1702,
               "root": false,
               "rootEmpty": false,
               "_timeout": 10000
