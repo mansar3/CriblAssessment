@@ -66,9 +66,17 @@ I focused on creating integration tests based on the comparison of the Agent inp
 
 - This is to verify that for each line in `large_1M_events.log` that it is in either target 1 or 2s' events.log file.
 
-1. Verify that for each input line their exists only one entry between the two target files. 
+2. Verify that for each input line their exists only one entry between the two target files. 
 
 - This is to verify that for each line in `large_1M_events.log' that it is ONLY found in one of the target event.log files.
+
+3. Verify there is no extra data that exists in target 1 that does not exist in the input file
+
+  - This is to verify that no extra data exists in target 1 that does not exist in the input file
+
+4. Verify there is no extra data that exists in target 2 that does not exist in the input file
+
+  - Same as #3 but for target 2
 
 #### Ideal Test Case
 
